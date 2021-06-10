@@ -1,0 +1,16 @@
+---
+- name: Install Nginx Web Server
+  apt:
+    name=nginx
+    state=latest
+  when:
+    ansible_os_family == "Debian"
+  notify:
+    - nginx systemd
+
+- name: Add static page in NGINX
+  template:
+    src=templates/index.html.j2
+    dest=/var/www/html/index.html
+  notify:
+    - nginx restart

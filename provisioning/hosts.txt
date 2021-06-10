@@ -1,0 +1,5 @@
+[linux_hosts]
+web ansible_host=18.193.83.219 ansible_user=ubuntu 
+
+[linux_hosts:vars]
+ansible_ssh_private_key_file=wgmoscow-test.pem

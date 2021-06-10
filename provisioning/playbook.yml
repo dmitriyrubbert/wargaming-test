@@ -1,0 +1,26 @@
+---
+- hosts: all
+  become: true
+  become_method: sudo
+  become_user: root
+  gather_facts: yes
+
+  pre_tasks:
+    - name: Update repositories cache
+      apt:
+        update_cache: yes
+
+    - name: Create file
+      file:
+          path: /data/empty.txt
+          mode: 0600
+          state: directory
+  roles:
+   - nginx
+
+  tasks:
+    - name: Show results
+      command: ls -la /data/
+      register: data
+    - debug: msg="{{ data.stdout_lines }}"
+    - debug: msg="http://{{ ansible_host }}"
